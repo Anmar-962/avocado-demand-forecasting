@@ -29,7 +29,7 @@ def monday_start(dates):
 def clean_data(path):
     df = pd.read_csv(path)
     df.columns = df.columns.str.strip().str.lower().str.replace(' ', '_')
-    required = {'date', 'company', 'customer_id', 'order_id', 'quantity'}
+    required = {'date', 'company', 'customer_id', 'order_id', 'quantity', 'unit'}
     if required - set(df):
         raise ValueError(f'Missing columns: {sorted(required - set(df))}')
     audit = {'input_rows': len(df), 'duplicate_rows_removed': int(df.duplicated().sum())}
@@ -39,6 +39,11 @@ def clean_data(path):
     valid = df[['date', 'company', 'customer_id', 'quantity']].notna().all(axis=1) & df['quantity'].ge(0)
     audit['invalid_rows_removed'] = int((~valid).sum())
     df = df.loc[valid].copy()
+    df['unit'] = df['unit'].astype('string').str.lower().str.strip()
+    case_rows = df['unit'].isin(['case', 'cases'])
+    audit['non_case_rows_removed'] = int((~case_rows).sum())
+    audit['unit_policy'] = 'Model cases only; kilogram rows remain in the unmodified input. No conversion is assumed.'
+    df = df.loc[case_rows].copy()
     for key in ['company', 'customer_id', 'order_id']:
         df[key] = df[key].astype('string').str.strip()
     product = df.get('product', pd.Series('', index=df.index)).astype('string').str.lower().str.strip()
