@@ -1,0 +1,21 @@
+{
+  "input_rows": 11386,
+  "duplicate_rows_removed": 48,
+  "invalid_rows_removed": 0,
+  "non_case_rows_removed": 246,
+  "unit_policy": "Model cases only; kilogram rows remain in the unmodified input. No conversion is assumed.",
+  "non_target_or_unknown_size_rows_removed": 37,
+  "clean_rows": 11055,
+  "date_min": "2021-01-01",
+  "date_max": "2023-08-20",
+  "companies": 2,
+  "weekly_rows": 828,
+  "zero_sales_weeks_inserted": 0,
+  "forecast_rows": 24,
+  "backtest_rows": 72,
+  "trees": 200,
+  "forecast_from": "2023-08-21",
+  "forecast_to": "2023-09-11",
+  "zero_sales_assumption": "Unrecorded weeks after a series begins are treated as zero sales.",
+  "partial_final_week": "The final calendar week may be incomplete; no missing daily transactions can be inferred."
+}

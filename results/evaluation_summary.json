@@ -1,0 +1,14 @@
+{
+  "random_forest": {
+    "pooled_mae": 360.06878128507293,
+    "pooled_rmse": 456.0979997449435
+  },
+  "naive_last_week": {
+    "pooled_mae": 365.94444444444446,
+    "pooled_rmse": 480.16955917212783
+  },
+  "mean_last_4_weeks": {
+    "pooled_mae": 334.2361111111111,
+    "pooled_rmse": 408.82814407632077
+  }
+}
