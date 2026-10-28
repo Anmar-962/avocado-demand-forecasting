@@ -1,11 +1,20 @@
 """Regression checks for the original project's forecasting pitfalls."""
 import unittest
+from io import StringIO
 import numpy as np
 import pandas as pd
-from forecast import monday_start, feature_row, recursive_forecast, weekly_series
+from forecast import monday_start, feature_row, recursive_forecast, weekly_series, clean_data
 
 
 class ForecastTests(unittest.TestCase):
+    def test_kilograms_are_not_added_to_cases(self):
+        data = pd.DataFrame({'date':['1/2/2023','1/2/2023'], 'company':[1,1],
+                             'customer_id':[1,1], 'order_id':[1,2], 'quantity':[10,1000],
+                             'unit':['case','kg'], 'product':['avo32cnv1','avo32cnv1']})
+        clean, audit = clean_data(StringIO(data.to_csv(index=False)))
+        self.assertEqual(clean['quantity'].sum(),10)
+        self.assertEqual(audit['non_case_rows_removed'],1)
+
     def test_monday_boundary(self):
         dates = pd.Series(pd.to_datetime(['2023-08-14', '2023-08-20', '2023-08-21']))
         self.assertEqual(monday_start(dates).dt.strftime('%Y-%m-%d').tolist(), ['2023-08-14', '2023-08-14', '2023-08-21'])
