@@ -4,6 +4,6 @@
 
 The file is preserved unchanged. The analysis removes exact duplicates and reports excluded rows in `results/data_audit.json`.
 
-Dates use month/day/year. Quantity is interpreted as cases; consult the original `unit` field before using other data with this workflow. Company and customer identifiers are provided in the source data.
+Dates use month/day/year. The source mixes `case` and `kg` quantities. The model keeps case-unit rows only; kilogram rows remain in the full source CSV but are excluded from model aggregation. No case-to-kilogram conversion is provided or assumed. Company and customer identifiers are provided in the source data.
 
 No external redistribution license was supplied. Contact the project author before redistributing the dataset beyond this repository.
